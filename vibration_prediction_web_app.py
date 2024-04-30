@@ -3,7 +3,9 @@ import pickle
 import streamlit as st
 
 # Load the model
-loaded_model = pickle.load(open("Vibration_Model.sav", 'rb'))
+# Load the model
+loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
+
 
 
 # Load the scaler
