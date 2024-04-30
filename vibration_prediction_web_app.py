@@ -1,15 +1,12 @@
 import numpy as np
 import pickle
 import streamlit as st
-import pkg_resources as pkg
 
 # Load the model
-model_path = pkg.resource_filename(__name__, 'Vibration_Model.sav')
-loaded_model = pickle.load(open(model_path, 'rb'))
+loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
 
 # Load the scaler
-scaler_path = pkg.resource_filename(__name__, 'scaler.sav')
-scaler = pickle.load(open(scaler_path, 'rb'))
+scaler = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\scaler.sav", 'rb'))
 
 # Function for prediction
 def vibration_prediction(input_data):
