@@ -4,7 +4,7 @@ import streamlit as st
 
 # Load the model
 # Load the model
-loaded_model = pickle.load(open("C:/Users/Admin/Desktop/ML MODEL/Vibration_Model.sav", 'rb'))
+loaded_model = pickle.load(open(r"C:/Users/Admin/Desktop/ML MODEL/Vibration_Model.sav", 'rb'))
 
 
 
