@@ -1,19 +1,15 @@
 import numpy as np
 import pickle
 import streamlit as st
-
-# Print a message to verify the file path
-print("Attempting to load the model...")
+import pkg_resources as pkg
 
 # Load the model
-try:
-    loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
-    print("Model loaded successfully.")
-except FileNotFoundError:
-    print("Model file not found. Please check the file path.")
+model_path = pkg.resource_filename(__name__, 'Vibration_Model.sav')
+loaded_model = pickle.load(open(model_path, 'rb'))
 
 # Load the scaler
-scaler = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\scaler.sav", 'rb'))
+scaler_path = pkg.resource_filename(__name__, 'scaler.sav')
+scaler = pickle.load(open(scaler_path, 'rb'))
 
 # Function for prediction
 def vibration_prediction(input_data):
