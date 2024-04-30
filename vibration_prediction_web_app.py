@@ -3,13 +3,20 @@ import pickle
 import streamlit as st
 
 # Load the model
-# Load the model
-loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
-
-
+print("Loading the model...")
+try:
+    loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
+    print("Model loaded successfully.")
+except FileNotFoundError:
+    print("Model file not found. Please check the file path.")
 
 # Load the scaler
-scaler = pickle.load(open(r"C:\\Users\\Admin\\Desktop\\ML MODEL\\scaler.sav", 'rb'))
+print("Loading the scaler...")
+try:
+    scaler = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\scaler.sav", 'rb'))
+    print("Scaler loaded successfully.")
+except FileNotFoundError:
+    print("Scaler file not found. Please check the file path.")
 
 # Function for prediction
 def vibration_prediction(input_data):
