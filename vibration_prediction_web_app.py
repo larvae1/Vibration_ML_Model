@@ -3,23 +3,13 @@ import pickle
 import streamlit as st
 
 # Load the model
-print("Loading the model...")
-try:
-    loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
-    print("Model loaded successfully.")
-except FileNotFoundError:
-    print("Model file not found. Please check the file path.")
+loaded_model = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\Vibration_Model.sav", 'rb'))
 
 # Load the scaler
-print("Loading the scaler...")
-try:
-    scaler = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\scaler.sav", 'rb'))
-    print("Scaler loaded successfully.")
-except FileNotFoundError:
-    print("Scaler file not found. Please check the file path.")
+scaler = pickle.load(open(r"C:\Users\Admin\Desktop\ML MODEL\scaler.sav", 'rb'))
 
 # Function for prediction
-def vibration_prediction(input_data):
+def vibration_prediction(input_data, scaler):
     # Standardize the input data using the loaded scaler
     input_data_reshaped = np.array(input_data).reshape(1, -1)
     std_data = scaler.transform(input_data_reshaped)
@@ -66,7 +56,7 @@ def main():
         # Convert input data to float
         try:
             input_data = [float(Vibration), float(Amplitude), float(Duration), float(Peak_to_Peak_Vibration)]
-            diagnosis = vibration_prediction(input_data)
+            diagnosis = vibration_prediction(input_data, scaler)  # Pass the scaler as an argument
             st.success(f"The vibration source is predicted to be: {diagnosis} origin ")
         except ValueError:
             st.error('Please enter valid numerical values for all input fields.')
