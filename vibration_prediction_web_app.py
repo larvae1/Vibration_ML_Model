@@ -1,10 +1,14 @@
+import os
 import numpy as np
 import pickle
 import streamlit as st
 
+# Get the directory of the current script
+current_dir = os.path.dirname(__file__)
+
 # Define paths to your model and scaler files
-MODEL_PATH = "Vibration_Model.sav"
-SCALER_PATH = "scaler.sav"
+MODEL_PATH = os.path.join(current_dir, "Vibration_Model.sav")
+SCALER_PATH = os.path.join(current_dir, "scaler.sav")
 
 # Load the model
 with open(MODEL_PATH, 'rb') as model_file:
