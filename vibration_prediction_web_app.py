@@ -1,22 +1,12 @@
-import os
 import numpy as np
 import pickle
 import streamlit as st
 
-# Get the directory of the current script
-current_dir = os.path.dirname(__file__)
-
-# Define paths to your model and scaler files
-MODEL_PATH = os.path.join(current_dir, "Vibration_Model.sav")
-SCALER_PATH = os.path.join(current_dir, "scaler.sav")
-
 # Load the model
-with open(MODEL_PATH, 'rb') as model_file:
-    loaded_model = pickle.load(model_file)
+loaded_model = pickle.load(open(r"C:\\Users\\Admin\\Desktop\\ML MODEL\\Vibration_Model.sav", 'rb'))
 
 # Load the scaler
-with open(SCALER_PATH, 'rb') as scaler_file:
-    scaler = pickle.load(scaler_file)
+scaler = pickle.load(open(r"C:\\Users\\Admin\\Desktop\\ML MODEL\\scaler.sav", 'rb'))
 
 # Function for prediction
 def vibration_prediction(input_data):
