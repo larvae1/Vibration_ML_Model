@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import pickle
+import joblib
 import requests
 
 # Function to load model and scaler directly from URLs
@@ -9,8 +9,8 @@ def load_model_and_scaler_from_urls(model_url, scaler_url):
     scaler_response = requests.get(scaler_url)
     
     # Load model and scaler from content
-    loaded_model = pickle.loads(model_response.content)
-    scaler = pickle.loads(scaler_response.content)
+    loaded_model = joblib.load(model_response.content)
+    scaler = joblib.load(scaler_response.content)
     
     return loaded_model, scaler
 
