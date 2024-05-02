@@ -1,12 +1,26 @@
+import streamlit as st
 import numpy as np
 import pickle
-import streamlit as st
+import requests
+
+# Function to download file from GitHub raw URL
+def download_file_from_github(url, filename):
+    response = requests.get(url)
+    with open(filename, 'wb') as f:
+        f.write(response.content)
+
+# Download the model and scaler files from GitHub
+model_url = 'https://github.com/larvae1/Vibration_ML_Model/raw/main/Vibration_Model.sav'
+scaler_url = 'https://github.com/larvae1/Vibration_ML_Model/raw/main/scaler.sav'
+
+download_file_from_github(model_url, 'Vibration_Model.sav')
+download_file_from_github(scaler_url, 'scaler.sav')
 
 # Load the model
-loaded_model = pickle.load(open(r"C:\\Users\\Admin\\Desktop\\ML MODEL\\Vibration_Model.sav", 'rb'))
+loaded_model = pickle.load(open('Vibration_Model.sav', 'rb'))
 
 # Load the scaler
-scaler = pickle.load(open(r"C:\\Users\\Admin\\Desktop\\ML MODEL\\scaler.sav", 'rb'))
+scaler = pickle.load(open('scaler.sav', 'rb'))
 
 # Function for prediction
 def vibration_prediction(input_data):
@@ -37,6 +51,16 @@ def main():
             font-size: 36px;
             margin-bottom: 30px;
         }
+        .input-container {
+            background-color: #333333; /* Dark white color */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        .input-box {
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
         </style>
         """,
         unsafe_allow_html=True
@@ -45,11 +69,13 @@ def main():
     # Giving a title
     st.markdown("<h1 class='title'>VIBRATION SOURCE PREDICTION</h1>", unsafe_allow_html=True)
     
-    # Getting input data from user
-    Vibration = st.text_input('Enter Vibration')
-    Amplitude = st.text_input('Enter Amplitude')
-    Duration = st.text_input('Enter Duration')
-    Peak_to_Peak_Vibration = st.text_input('Enter Peak-to-Peak Vibration')
+    # Input container
+    with st.container():
+        st.markdown("<h2 class='input-box'>Input Parameters</h2>", unsafe_allow_html=True)
+        Vibration = st.text_input('Enter Vibration')
+        Amplitude = st.text_input('Enter Amplitude')
+        Duration = st.text_input('Enter Duration')
+        Peak_to_Peak_Vibration = st.text_input('Enter Peak-to-Peak Vibration')
     
     # Creating button for prediction
     if st.button('Predict Vibration Source', key='prediction_button'):
