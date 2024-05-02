@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pickle
+import sklearn
 
 # Load the model
 loaded_model = pickle.load(open("Vibration_Model.sav", "rb"))
