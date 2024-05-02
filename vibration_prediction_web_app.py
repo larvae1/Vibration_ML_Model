@@ -3,24 +3,23 @@ import numpy as np
 import pickle
 import requests
 
-# Function to download file from GitHub raw URL
-def download_file_from_github(url, filename):
-    response = requests.get(url)
-    with open(filename, 'wb') as f:
-        f.write(response.content)
+# Function to load model and scaler directly from URLs
+def load_model_and_scaler_from_urls(model_url, scaler_url):
+    model_response = requests.get(model_url)
+    scaler_response = requests.get(scaler_url)
+    
+    # Load model and scaler from content
+    loaded_model = pickle.loads(model_response.content)
+    scaler = pickle.loads(scaler_response.content)
+    
+    return loaded_model, scaler
 
-# Download the model and scaler files from GitHub
+# URLs for the model and scaler files
 model_url = 'https://github.com/larvae1/Vibration_ML_Model/raw/main/Vibration_Model.sav'
 scaler_url = 'https://github.com/larvae1/Vibration_ML_Model/raw/main/scaler.sav'
 
-download_file_from_github(model_url, 'Vibration_Model.sav')
-download_file_from_github(scaler_url, 'scaler.sav')
-
-# Load the model
-loaded_model = pickle.load(open('Vibration_Model.sav', 'rb'))
-
-# Load the scaler
-scaler = pickle.load(open('scaler.sav', 'rb'))
+# Load the model and scaler
+loaded_model, scaler = load_model_and_scaler_from_urls(model_url, scaler_url)
 
 # Function for prediction
 def vibration_prediction(input_data):
